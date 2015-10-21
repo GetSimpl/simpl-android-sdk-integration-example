@@ -12,3 +12,4 @@ gradlew.bat
 gradle/
 */*.txt
 */*.sh
+*.iml
