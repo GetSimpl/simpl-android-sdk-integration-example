@@ -65,8 +65,10 @@ In AndroidManifest.xml of your application project add the following permission 
  * For initializing Simpl SDK
  *
  * @param applicationContext application context of the current application
+ * @param runInSandboxMode boolean flag that indicates if SDK should run in Sandbox mode. If true SDK will run in Sandbox
+ * mode else It will run in Production mode
  */
-Simpl.init(applicationContext);
+Simpl.init(applicationContext, runInSandboxMode);
 ```
 ## Integrating using official Simpl button
 ### Add following code to your layout file
