@@ -102,7 +102,8 @@ button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
     }
 });
 ```
-> __Important__ If user is not approved to use Simpl, SimplBuyButton visibility is set to `GONE`.
+> __Important__ 
+> If user is not approved to use Simpl, SimplBuyButton visibility is set to `GONE`.
 > If you want to take control of VISIBILITY then use ```java Simpl.getInstance().isUserApproved
 > (user)```.
 
