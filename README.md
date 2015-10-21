@@ -69,7 +69,7 @@ Simpl.init(applicationContext);
     android:layout_gravity="center_horizontal"
     android:layout_margin="10dp" />
 ```
-> Use android:animateLayoutChanges="true" for your parent layout for smooth visibility changes.
+> Add ```android:animateLayoutChanges="true"``` to your parent layout for smooth visibility changes.
 
 ### Add following initialization to the corresponding activity
 ```java
