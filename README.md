@@ -134,7 +134,9 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
 
 1) I see an error saying "Couldn't resolve depenedncy "com.simpl.android:data:<version>" on the Android Studio console.
 
-> __Answer__ It's sometimes because of the redirect failure. Just retry building the app once or twice. If the issue persists contact help@getsimpl.com
+> __Answer__ 
+
+It's sometimes because of the redirect failure. Just retry building the app once or twice. If the issue persists contact help@getsimpl.com
 
 2) I see following error in the terminal while building the app using gradle command
    ```console
@@ -157,4 +159,6 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
    Total time: 2 mins 44.481 secs
   ```
 
-> __Answer__ This is also the result of redirect failure. Just retry building the app once or twice. If the issue persists contact help@getsimpl.com.
+> __Answer__ 
+
+This is also the result of redirect failure. Just retry building the app once or twice. If the issue persists contact help@getsimpl.com.
