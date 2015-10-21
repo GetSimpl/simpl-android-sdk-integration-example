@@ -20,7 +20,7 @@
             android:value="7c8d150034fa758b825c16dde31bbdfcebfd828e"/>
         <meta-data
             android:name="com.simpl.android.sdk.merchant_id"
-            android:value="cc253a6252f4472dee9bd3539d594c10"/>
+            android:value="e049a4fd50019804a6530a2dea8228c9"/>
 
         <activity
             android:name=".view.activity.SampleActivity"
