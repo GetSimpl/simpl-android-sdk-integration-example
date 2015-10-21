@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Simpl Sample App</string>
+    <string name="title_activity_sample">SampleActivity</string>
+    <string name="title_activity_checkout">CheckoutActivity</string>
+</resources>
