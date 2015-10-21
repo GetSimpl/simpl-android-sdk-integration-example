@@ -1,3 +1,5 @@
+# Simpl Android SDK
+
 Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your apps in on the Android platform.
 
 ## Adding SDK to your project
@@ -127,3 +129,32 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
     }
 });
 ```
+
+# FAQs
+
+1) I see an error saying "Couldn't resolve depenedncy "com.simpl.android:data:<version>" on the Android Studio console.
+
+> __Answer__ It's sometimes because of the redirect failure. Just retry building the app once or twice. If the issue persists contact help@getsimpl.com
+
+2) I see following error in the terminal while building the app using gradle command
+   ```console
+   Starting a new Gradle Daemon for this build (subsequent builds will be faster).
+   Parallel execution with configuration on demand is an incubating feature.
+   
+   FAILURE: Build failed with an exception.
+   
+   * What went wrong:
+   A problem occurred configuring project ':app'.
+   > Could not download data.aar (com.simpl.android:data:0.0.1)
+      > Could not get resource 'http://maven.getsimpl.com/com/simpl/android/data/0.0.1/data-0.0.1.aar'.
+         > Could not HEAD 'http://maven.getsimpl.com/com/simpl/android/data/0.0.1/data-0.0.1.aar'. Received status code 502 from server: Bad Gateway
+   
+   * Try:
+   Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+   
+   BUILD FAILED
+   
+   Total time: 2 mins 44.481 secs
+  ```
+
+> __Answer__ This is also the result of redirect failure. Just retry building the app once or twice. If the issue persists contact help@getsimpl.com.
