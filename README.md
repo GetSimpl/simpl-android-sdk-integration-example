@@ -33,8 +33,9 @@ dependencies {
 > We are choosing the latest build tool version (23) for Android Marshmallow support. (For release notes : [link]( http://developer.android.com/tools/revisions/build-tools.html))
 
 ### Maven
-Add following dependency to your pom.xml
+Add following dependency and repository to your pom.xml
 ```xml
+<project ...>
 <dependecies>
     ...
     <dependency>
@@ -43,6 +44,14 @@ Add following dependency to your pom.xml
         <version>1.0.0</version>
     </dependency>
 </dependencies>
+
+<repositories>
+    <repository>
+      <id>com.simpl</id>
+      <url>http://maven.getsimpl.com</url>
+    </repository>
+ </repositories>
+</project>
 ```
 
 ## Update your AndroidManifest.xml
