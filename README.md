@@ -4,13 +4,12 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your apps 
 
 ## Adding SDK to your project
 ### Gradle (Android Studio)
-* Add Simpl maven repository to your mobules build.gradle.
+* Add Simpl maven repository to your applications build.gradle.
 ```groovy
     repositories {
         ...
         maven { url 'http://maven.getsimpl.com'}
     }
-}
 ```
 * Add Simpl as dependency in your project gradle file
 ```
@@ -77,7 +76,7 @@ Simpl.init(applicationContext, runInSandboxMode);
 ### Add following code to your layout file
 
 ```xml
-<com.simpl.android.sdk.SimplBuyButton
+<com.simpl.android.sdk.SimplButton
     android:id="@+id/simpl_buy_button"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
