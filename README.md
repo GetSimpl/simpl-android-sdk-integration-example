@@ -76,7 +76,7 @@ Simpl.init(applicationContext, runInSandboxMode);
 
 ```xml
 <com.simpl.android.sdk.SimplButton
-    android:id="@+id/simpl_buy_button"
+    android:id="@+id/simpl_button"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
