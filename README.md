@@ -89,7 +89,7 @@ Simpl.init(applicationContext, runInSandboxMode);
 ```java
 SimplUser user = SimplUser.create(emailAddress, phoneNumber);
 SimplTransaction transaction = SimplTransaction.create(user, amountInPaise);
-SimplBuyButton button = (SimplBuyButton) findViewById(R.id.simpl_buy_button);
+SimplButton button = (SimplButton) findViewById(R.id.simpl_button);
 button.setTransaction(transaction);
 button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
     /**
