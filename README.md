@@ -86,8 +86,8 @@ Simpl.init(applicationContext, runInSandboxMode);
 
 ### Add following initialization to the corresponding activity
 ```java
-SimplUser user = SimplUser.create(emailAddress, phoneNumber);
-SimplTransaction transaction = SimplTransaction.create(user, amountInPaise);
+SimplUser user = new SimplUser(emailAddress, phoneNumber);
+SimplTransaction transaction = new SimplTransaction(user, amountInPaise);
 SimplButton button = (SimplButton) findViewById(R.id.simpl_button);
 button.setTransaction(transaction);
 button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
@@ -113,7 +113,7 @@ button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
 
 ### For checking if user is approved
 ```java
-SimplUser user = SimplUser.create(emailAddress, phoneNumber);
+SimplUser user = new SimplUser(emailAddress, phoneNumber);
 Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
   /**
      * Called when operation is successful
