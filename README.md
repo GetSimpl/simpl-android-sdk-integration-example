@@ -11,14 +11,13 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your apps 
         maven { url 'http://maven.getsimpl.com'}
     }
 ```
-* Add Simpl as dependency in your project gradle file
-```
+* And then add Simpl SDK as dependency.
+```groovy
 dependencies {
     compile "com.simpl.android:sdk:1.0.0"
 }
 ```
-> __Important__ 
-
+__Important__ 
 > We are using latest stable Android Build Tool version : 23.0.1, Min SDK Version : 14, Target SDK version 23 and Compile SDK version 23. 
 
 > Check your build.gradle for the project and module to check if you are on the latest versions (> 23.0.1). 
@@ -109,7 +108,7 @@ button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
 });
 ```
 > __Important__ 
-> If user is not approved to use Simpl, SimplBuyButton visibility is set to `GONE`.
+> If user is not approved to use Simpl, SimplButton visibility is set to `GONE`.
 > If you want to take control of VISIBILITY then use isUserApproved method explained in the next bit.
 
 ### For checking if user is approved
