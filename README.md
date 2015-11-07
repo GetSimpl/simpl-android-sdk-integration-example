@@ -160,9 +160,41 @@ We allow customizing SimplButton as per your branding needs. For using style att
 
 Attribute|XML|Method|
 ---------|---|------|
-Title Color|```simpl:simpl_titleTextColor="@color/__simpl_blue_grey"```|``` simplButton.setTitleTextColor(Color.BLUE);```| 
-Title Text Size|```simpl:simpl_titleTextSize="12sp"```|``` simplButton.setTitleTextSize(DimensionUtil.dpToPx(12));```|
+Title Color|```simpl:simpl_titleTextColor="@color/__simpl_blue_grey"```|```simplButton.setTitleTextColor(Color.BLUE);```| 
+Title Text Size|```simpl:simpl_titleTextSize="12sp"```|```simplButton.setTitleTextSize(dpToPx(12));```|
+Button Color|```simpl:simpl_buttonColor="@color/white"```|```simplButton.setButtonColor(Color.WHITE)```|
+Button Height|```simpl:simpl_buttonHeight="24dp"```|```simplButton.setButtonHeight(dpToPx(20))```|
+Button Shadow Color|```simpl:simpl_buttonShadowColor="@color/white"```|```simplButton.setButtonShadowColor(Color.BLACK)```|
+Separator Color|```simpl:simpl_separatorColor="@color/black"```|```simplButton.setSeparatorColor(Color.BLACK);```|
+Title Typeface|```-```|```simplButton.setTitleTextTypeface(typeface)```|
 
+
+### Helper Methods
+```java
+/**
+ * Method to get  Pixels from Display Pixels
+ *
+ * @param context Current {@link Context}
+ * @param dp      Display Pixels
+ * @return Pixel value
+ */
+public static int dpToPx(final Context context, final int dp) {
+    return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context
+            .getResources().getDisplayMetrics());
+}
+
+/**
+ * Method to get  Pixels from screen pixels
+ *
+ * @param context Current {@link Context}
+ * @param sp Screen pixels
+ * @return Pixel value
+ */
+public static float spTopx(final Context context, float sp){
+    final float scale = context.getResources().getDisplayMetrics().scaledDensity;
+    return sp * scale;
+}
+```
 
 # FAQs
 
