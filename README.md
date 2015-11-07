@@ -137,6 +137,8 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
 
 
 We allow customizing SimplButton as per your branding needs. For using style attributes (in your XML layout SimplButton tag) add ```xmlns:simpl="http://schemas.android.com/apk/res-auto"``` to the top-most ViewGroup (i.e. parent view) of your layout file. 
+
+Example Layout File:
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
