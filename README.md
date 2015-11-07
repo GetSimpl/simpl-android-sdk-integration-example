@@ -160,7 +160,7 @@ Example Layout File:
 </RelativeLayout>
 ```
 
-Attribute|XML|Method|
+Property|Style Attribute| Java Method|
 ---------|---|------|
 Title Color|```simpl:simpl_titleTextColor="@color/__simpl_blue_grey"```|```simplButton.setTitleTextColor(Color.BLUE);```| 
 Title Text Size|```simpl:simpl_titleTextSize="12sp"```|```simplButton.setTitleTextSize(dpToPx(12));```|
