@@ -5,6 +5,7 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your apps 
 ## Adding SDK to your project
 ### Gradle (Android Studio)
 * Add Simpl maven repository to your applications build.gradle.
+![alt Help](https://raw.github.com/username/projectname/integration/v1.0.1/images/gradle_file.png)
 ```groovy
     repositories {
         ...
@@ -131,6 +132,37 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
     }
 });
 ```
+
+## Customizing ```SimplButton```
+
+
+We allow customizing SimplButton as per your branding needs. For using style attributes (in your XML layout SimplButton tag) add ```xmlns:simpl="http://schemas.android.com/apk/res-auto"``` to the top-most ViewGroup (i.e. parent view) of your layout file. 
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:simpl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.simpl.android.sdk.SimplButton
+        android:id="@+id/pay_by_simple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        simpl:simpl_buttonColor="@android:color/background_dark"
+        simpl:simpl_buttonHeight="24dp"
+        simpl:simpl_titleTextSize="12sp"/>
+</RelativeLayout>
+```
+
+Attribute|XML|Method|
+---------|---|------|
+Title Color|```simpl:simpl_titleTextColor="@color/__simpl_blue_grey"```|``` simplButton.setTitleTextColor(Color.BLUE);```| 
+Title Text Size|```simpl:simpl_titleTextSize="12sp"```|``` simplButton.setTitleTextSize(DimensionUtil.dpToPx(12));```|
+
 
 # FAQs
 
