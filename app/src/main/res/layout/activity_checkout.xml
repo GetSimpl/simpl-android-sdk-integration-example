@@ -10,25 +10,25 @@
 
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:simpl="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
-    android:animateLayoutChanges="true"
-    tools:context="com.simpl.android.sdk.sample.view.activity.CheckoutActivity">
+    android:animateLayoutChanges="true">
 
     <View
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
-        android:background="@color/blue_grey"/>
+        android:background="@color/__simpl_blue_grey"/>
 
     <com.simpl.android.sdk.SimplButton
         android:animateLayoutChanges="true"
         android:id="@+id/pay_by_simple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        simpl:simpl_buttonHeight="24dp"
         android:layout_below="@id/top"/>
 
     <View
@@ -36,6 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/pay_by_simple"
-        android:background="@color/blue_grey"/>
+        android:background="@color/__simpl_blue_grey"/>
 
 </RelativeLayout>

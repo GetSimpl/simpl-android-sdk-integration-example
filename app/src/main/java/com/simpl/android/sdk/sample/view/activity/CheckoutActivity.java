@@ -9,6 +9,7 @@
 
 package com.simpl.android.sdk.sample.view.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.simpl.android.sdk.SimplAuthorizeTransactionListener;
 import com.simpl.android.sdk.SimplButton;
 import com.simpl.android.sdk.SimplTransaction;
 import com.simpl.android.sdk.SimplTransactionAuthorization;
+import com.simpl.android.sdk.utils.Typefaces;
 
 /**
  * Final checkout activity where {@link SimplButton} is inflated in the view.
@@ -45,6 +47,10 @@ public class CheckoutActivity extends AppCompatActivity {
         }
         // Getting hold of the SimplButton
         SimplButton simplButton = (SimplButton) findViewById(com.simpl.android.sdk.sample.R.id.pay_by_simple);
+        // Customizing simpl button via code
+        simplButton.setTitleTextTypeface(Typefaces.get(Typefaces.Type.SOURCE_SANS_SEMI_BOLD));;
+        simplButton.setTitleTextColor(Color.WHITE);
+        // done customizing via code
         simplButton.setTransaction(simplTransaction);
         simplButton.setSimplAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
             @Override
