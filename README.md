@@ -170,7 +170,7 @@ Button Color|```simpl:simpl_buttonColor="@color/white"```|```simplButton.setButt
 Button Height|```simpl:simpl_buttonHeight="24dp"```|```simplButton.setButtonHeight(dpToPx(20))```|
 Button Shadow Color|```simpl:simpl_buttonShadowColor="@color/white"```|```simplButton.setButtonShadowColor(Color.BLACK)```|
 Separator Color|```simpl:simpl_separatorColor="@color/black"```|```simplButton.setSeparatorColor(Color.BLACK);```|
-Title Typeface|```-```|```simplButton.setTitleTextTypeface(typeface)```|
+Title Typeface||```simplButton.setTitleTextTypeface(typeface)```|
 Powered By Text Coloe|```simpl:simpl_poweredByTextColor="@color/white"```|```simplButton.setPoweredByTextColor(Color.BLACK)```|
 
 
