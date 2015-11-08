@@ -5,6 +5,9 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your apps 
 ## Adding SDK to your project
 ### Gradle (Android Studio)
 * Add Simpl maven repository to your applications build.gradle.
+
+![alt Help](https://raw.github.com/username/projectname/integration/v1.0.1/images/gradle_file.png)
+
 ```groovy
     repositories {
         ...
@@ -130,6 +133,78 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
     void onError(final Throwable throwable){
     }
 });
+```
+
+## Customizing ```SimplButton```
+
+
+We allow customizing SimplButton as per your branding needs. For using style attributes (in your XML layout SimplButton tag) add ```xmlns:simpl="http://schemas.android.com/apk/res-auto"``` to the top-most ViewGroup (i.e. parent view) of your layout file. 
+
+Example Layout File:
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:simpl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.simpl.android.sdk.SimplButton
+        android:id="@+id/pay_by_simple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        simpl:simpl_buttonColor="@android:color/background_dark"
+        simpl:simpl_buttonHeight="24dp"
+        simpl:simpl_titleTextSize="12sp"/>
+</RelativeLayout>
+```
+
+Property|Style Attribute| Java Method|
+---------|---|------|
+Title Color|```simpl:simpl_titleTextColor="@color/black"```|```simplButton.setTitleTextColor(Color.BLUE);```| 
+Title Text Size|```simpl:simpl_titleTextSize="12sp"```|```simplButton.setTitleTextSize(dpToPx(12));```|
+Button Color|```simpl:simpl_buttonColor="@color/white"```|```simplButton.setButtonColor(Color.WHITE)```|
+Button Height|```simpl:simpl_buttonHeight="24dp"```|```simplButton.setButtonHeight(dpToPx(20))```|
+Button Shadow Color|```simpl:simpl_buttonShadowColor="@color/white"```|```simplButton.setButtonShadowColor(Color.BLACK)```|
+Separator Color|```simpl:simpl_separatorColor="@color/black"```|```simplButton.setSeparatorColor(Color.BLACK);```|
+Title Typeface||```simplButton.setTitleTextTypeface(typeface)```|
+Powered By Text Color|```simpl:simpl_poweredByTextColor="@color/white"```|```simplButton.setPoweredByTextColor(Color.BLACK)```|
+
+
+### Helper Methods
+```java
+/**
+ * Method to get  Pixels from Display Pixels
+ *
+ * @param context Current {@link Context}
+ * @param dp      Display Pixels
+ * @return Pixel value
+ */
+public static int dpToPx(final Context context, final int dp) {
+    return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context
+            .getResources().getDisplayMetrics());
+}
+
+/**
+ * Method to get  Pixels from screen pixels
+ *
+ * @param context Current {@link Context}
+ * @param sp Screen pixels
+ * @return Pixel value
+ */
+public static float spToPx(final Context context, float sp){
+    final float scale = context.getResources().getDisplayMetrics().scaledDensity;
+    return sp * scale;
+}
+```
+
+## Proguard rules
+Add following line to your proguard rules.
+```groovy
+-dontwarn org.apache.**
 ```
 
 # FAQs
