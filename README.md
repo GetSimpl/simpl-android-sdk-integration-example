@@ -5,7 +5,9 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your apps 
 ## Adding SDK to your project
 ### Gradle (Android Studio)
 * Add Simpl maven repository to your applications build.gradle.
+
 ![alt Help](https://raw.github.com/username/projectname/integration/v1.0.1/images/gradle_file.png)
+
 ```groovy
     repositories {
         ...
@@ -162,7 +164,7 @@ Example Layout File:
 
 Property|Style Attribute| Java Method|
 ---------|---|------|
-Title Color|```simpl:simpl_titleTextColor="@color/__simpl_blue_grey"```|```simplButton.setTitleTextColor(Color.BLUE);```| 
+Title Color|```simpl:simpl_titleTextColor="@color/black"```|```simplButton.setTitleTextColor(Color.BLUE);```| 
 Title Text Size|```simpl:simpl_titleTextSize="12sp"```|```simplButton.setTitleTextSize(dpToPx(12));```|
 Button Color|```simpl:simpl_buttonColor="@color/white"```|```simplButton.setButtonColor(Color.WHITE)```|
 Button Height|```simpl:simpl_buttonHeight="24dp"```|```simplButton.setButtonHeight(dpToPx(20))```|
@@ -192,10 +194,16 @@ public static int dpToPx(final Context context, final int dp) {
  * @param sp Screen pixels
  * @return Pixel value
  */
-public static float spTopx(final Context context, float sp){
+public static float spToPx(final Context context, float sp){
     final float scale = context.getResources().getDisplayMetrics().scaledDensity;
     return sp * scale;
 }
+```
+
+## Proguard rules
+Add following line to your proguard rules.
+```groovy
+-dontwarn org.apache.**
 ```
 
 # FAQs
