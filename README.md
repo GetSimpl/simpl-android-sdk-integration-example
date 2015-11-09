@@ -159,6 +159,7 @@ public UserApproval getUserApproval();
 * ```getUserApproval()``` will return a null object, unless you use ```Simpl.getInstance().isUserApproved(...)``` method. 
 * ```SimplSession``` caches the result of ```Simpl.getInstance().isUserApproved(...)``` call along with the passed ```SimplUser``` object. You can access this ```SimplUser``` instance using ```Simpl.getInstance().getSession().getSimplUser()```.
 * The result of  ```Simpl.getInstance().isUserApproved(...)``` is also cached in the current session and reused during current session of ```Simpl```. You can access this result using ```Simpl.getInstance().getSession().getUserApproval()``` method.
+* This feature is still in beta, so ping us @ help@getsimpl.com for any help or issue.
 
 ## Customizing ```SimplButton```
 We allow customizing SimplButton as per your branding needs. For using style attributes (in your XML layout SimplButton tag) add ```xmlns:simpl="http://schemas.android.com/apk/res-auto"``` to the top-most ViewGroup (i.e. parent view) of your layout file. 
