@@ -6,7 +6,7 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your apps 
 ### Gradle (Android Studio)
 * Add Simpl maven repository to your applications build.gradle.
 
-![alt Help](https://raw.github.com/username/projectname/integration/v1.0.1/images/gradle_file.png)
+![alt Help](https://raw.github.com/username/projectname/integration/v1.0.2/images/gradle_file.png)
 
 ```groovy
     repositories {
@@ -17,7 +17,7 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your apps 
 * And then add Simpl SDK as dependency.
 ```groovy
 dependencies {
-    compile "com.simpl.android:sdk:1.0.0"
+    compile "com.simpl.android:sdk:1.0.2"
 }
 ```
 __Important__ 
@@ -36,7 +36,7 @@ Add following dependency and repository to your pom.xml
     <dependency>
         <groupId>com.simpl.android</groupId>
         <artifactId>sdk</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.2</version>
     </dependency>
 </dependencies>
 
@@ -68,12 +68,14 @@ In AndroidManifest.xml of your application project add the following permission 
 /**
  * For initializing Simpl SDK
  *
- * @param applicationContext application context of the current application
- * @param runInSandboxMode boolean flag that indicates if SDK should run in Sandbox mode. If true SDK will run in Sandbox
+ * @param application      Current {@link Application} instance
+ * @param runInSandboxMode Boolean flag that indicates if SDK should run in Sandbox mode. If true SDK will run in Sandbox
  * mode else It will run in Production mode
  */
-Simpl.init(applicationContext, runInSandboxMode);
+Simpl.init(application, runInSandboxMode);
 ```
+> We do not store any reference to ```application``` parameter, so there is no possibility of cyclic reference.
+
 ## Integrating using official Simpl button
 ### Add following code to your layout file
 
@@ -135,9 +137,18 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
 });
 ```
 
+## Using ```SimplSession```
+```SimplSession``` is a session storage used for storing Simpl modules to use them across activities. There are four methods provided by ```SimplSession``` class :
+```java
+public SimplUser getSimplUser();
+
+public void setSimplUser(SimplUser simplUser);
+
+public UserApproval getUserApproval();
+```
+You can get the access to current ```SimplSession``` using ```Simpl.getInstance().getSession()```.
+
 ## Customizing ```SimplButton```
-
-
 We allow customizing SimplButton as per your branding needs. For using style attributes (in your XML layout SimplButton tag) add ```xmlns:simpl="http://schemas.android.com/apk/res-auto"``` to the top-most ViewGroup (i.e. parent view) of your layout file. 
 
 Example Layout File:
@@ -166,6 +177,7 @@ Property|Style Attribute| Java Method|
 ---------|---|------|
 Title Color|```simpl:simpl_titleTextColor="@color/black"```|```simplButton.setTitleTextColor(Color.BLUE);```| 
 Title Text Size|```simpl:simpl_titleTextSize="12sp"```|```simplButton.setTitleTextSize(dpToPx(12));```|
+Title Text|```simpl:simpl_titleText="Buy with Simpl"```|```simplButton.setTitleText("Buy with Simpl")```|
 Button Color|```simpl:simpl_buttonColor="@color/white"```|```simplButton.setButtonColor(Color.WHITE)```|
 Button Height|```simpl:simpl_buttonHeight="24dp"```|```simplButton.setButtonHeight(dpToPx(20))```|
 Button Shadow Color|```simpl:simpl_buttonShadowColor="@color/white"```|```simplButton.setButtonShadowColor(Color.BLACK)```|
