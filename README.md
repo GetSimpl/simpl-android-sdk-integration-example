@@ -117,6 +117,10 @@ button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
 > If you want to take control of VISIBILITY then use isUserApproved method explained in the next bit.
 
 ### For checking if user is approved
+__Important__
+> It's not compulsory to call this method before calling ```setTransaction()``` method on ```SimplButton```. This is a helper
+> method to be used as and when needed. For example : To introduce your user to Simpl payment method in your app.
+
 ```java
 SimplUser user = new SimplUser(emailAddress, phoneNumber);
 Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
@@ -138,6 +142,9 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
     }
 });
 ```
+__What is ```showSimplIntroduction``` parameter in ```onSuccess```?__
+
+A. Simpl is a platform, which can be accessed on web as well as on mobiles. So this boolean indicates that if the user has used Simpl before on any other platform. In other words, this boolean indicates that if the user is aware of Simpl payment method or not. If boolean value is ```true``` then user needs to be introduced to Simpl payment method, and in case it is ```false```, user already knows what is Simpl as he as already transacted using Simpl.
 
 ## Using ```SimplSession```
 ```SimplSession``` is a session storage used for storing Simpl modules to use them across activities. There are three methods provided by ```SimplSession``` class :
