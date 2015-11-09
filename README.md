@@ -138,7 +138,7 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
 ```
 
 ## Using ```SimplSession```
-```SimplSession``` is a session storage used for storing Simpl modules to use them across activities. There are four methods provided by ```SimplSession``` class :
+```SimplSession``` is a session storage used for storing Simpl modules to use them across activities. There are three methods provided by ```SimplSession``` class :
 ```java
 public SimplUser getSimplUser();
 
@@ -146,7 +146,7 @@ public void setSimplUser(SimplUser simplUser);
 
 public UserApproval getUserApproval();
 ```
-You can get the access to current ```SimplSession``` using ```Simpl.getInstance().getSession()```.
+You can get the access to current ```SimplSession``` using ```Simpl.getInstance().getSession()```. By default, ```getUserApproval()``` will return a null object, unless you use ```Simpl.getInstance().isUserApproved(...)``` method. ```SimplSession``` caches the result of this call along with the passed ```SimplUser``` object. This result is reused during one session of ```Simpl```.
 
 ## Customizing ```SimplButton```
 We allow customizing SimplButton as per your branding needs. For using style attributes (in your XML layout SimplButton tag) add ```xmlns:simpl="http://schemas.android.com/apk/res-auto"``` to the top-most ViewGroup (i.e. parent view) of your layout file. 
