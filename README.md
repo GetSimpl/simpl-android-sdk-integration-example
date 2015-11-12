@@ -1,6 +1,6 @@
 # Simpl Android SDK
 
-Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your apps in on the Android platform.
+Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your Android apps.
 
 ## Adding SDK to your project
 ### Gradle (Android Studio)
