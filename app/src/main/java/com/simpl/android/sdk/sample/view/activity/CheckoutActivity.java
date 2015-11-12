@@ -48,7 +48,8 @@ public class CheckoutActivity extends AppCompatActivity {
         // Getting hold of the SimplButton
         SimplButton simplButton = (SimplButton) findViewById(com.simpl.android.sdk.sample.R.id.pay_by_simple);
         // Customizing simpl button via code
-        simplButton.setTitleTextTypeface(Typefaces.get(Typefaces.Type.SOURCE_SANS_SEMI_BOLD));;
+        simplButton.setTitleTextTypeface(Typefaces.get(Typefaces.Type.SOURCE_SANS_SEMI_BOLD));
+        ;
         simplButton.setTitleTextColor(Color.WHITE);
         // done customizing via code
         simplButton.setTransaction(simplTransaction);
@@ -58,6 +59,12 @@ public class CheckoutActivity extends AppCompatActivity {
                 Log.d(TAG, transactionAuthorization.toString());
                 Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
                         "" + transactionAuthorization.toString(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled() {
+                Toast.makeText(getApplicationContext(), "Use cancelled transaction", Toast
+                        .LENGTH_LONG).show();
             }
 
             @Override
