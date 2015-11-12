@@ -21,11 +21,9 @@ dependencies {
 }
 ```
 __Important__ 
-> We are using latest stable Android Build Tool version : 23.0.1, Min SDK Version : 14, Target SDK version 23 and Compile SDK version 23. 
+> We are using Android Build Tool version : 22.0.1, Min SDK Version : 14, Target SDK version 22 and Compile SDK version 22. 
 
-> Check your build.gradle for the project and module to check if you are on the latest versions (> 23.0.1). 
-
-> We are choosing the latest build tool version (23) for Android Marshmallow support. (For release notes : [link]( http://developer.android.com/tools/revisions/build-tools.html))
+> Check your build.gradle for the project and module to check if you are on the build tool version >= 22.0.1. 
 
 ### Maven
 Add following dependency and repository to your pom.xml
