@@ -123,12 +123,14 @@ button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
 ```java
 SimplUser user = new SimplUser(emailAddress, phoneNumber);
 Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
-  /**
+   /**
      * Called when operation is successful
      *
-     * @param status status of approval : true if user is approved and false if he is not.
+     * @param status                status of approval : true if user is approved and false if he is not.
+     * @param showSimplIntroduction Boolean to indicate that User should be shown an introduction
+     *                              modal related to Simpl
      */
-    void onSuccess(final boolean status){
+    void onSuccess(final boolean status, final boolean showSimplIntroduction){
     }
     /**
      * Called when opration is unsuccessful
