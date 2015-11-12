@@ -123,6 +123,7 @@ button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
 __Important__
 > It's not compulsory to call this method before calling ```setTransaction()``` method on ```SimplButton```. This is a helper
 > method to be used as and when needed. For example : To introduce your user to Simpl payment method in your app.
+
 ```java
 SimplUser user = new SimplUser(emailAddress, phoneNumber);
 Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
