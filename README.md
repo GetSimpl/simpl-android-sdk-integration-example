@@ -120,6 +120,9 @@ button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
 > If you want to take control of VISIBILITY then use isUserApproved method explained in the next bit.
 
 ### For checking if user is approved
+__Important__
+> It's not compulsory to call this method before calling ```setTransaction()``` method on ```SimplButton```. This is a helper
+> method to be used as and when needed. For example : To introduce your user to Simpl payment method in your app.
 ```java
 SimplUser user = new SimplUser(emailAddress, phoneNumber);
 Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
@@ -141,6 +144,9 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
     }
 });
 ```
+__What is ```showSimplIntroduction``` parameter in ```onSuccess```?__
+
+A. Simpl is a platform, which can be accessed on web as well as on mobiles. So this boolean indicates that if the user has used Simpl before on any other platform. In other words, this boolean indicates that if the user is aware of Simpl payment method or not. If boolean value is ```true``` then user needs to be introduced to Simpl payment method, and in case it is ```false```, user already knows what is Simpl as he as already transacted using Simpl.
 
 ## Using ```SimplSession```
 ```SimplSession``` is a session storage used for storing Simpl modules to use them across activities. There are three methods provided by ```SimplSession``` class :
@@ -151,7 +157,11 @@ public void setSimplUser(SimplUser simplUser);
 
 public UserApproval getUserApproval();
 ```
-You can get the access to current ```SimplSession``` using ```Simpl.getInstance().getSession()```. By default, ```getUserApproval()``` will return a null object, unless you use ```Simpl.getInstance().isUserApproved(...)``` method. ```SimplSession``` caches the result of this call along with the passed ```SimplUser``` object. This result is reused during one session of ```Simpl```.
+* You can get access to the current ```SimplSession``` using ```Simpl.getInstance().getSession()``` method. 
+* ```getUserApproval()``` will return a null object, unless you use ```Simpl.getInstance().isUserApproved(...)``` method. 
+* ```SimplSession``` caches the result of ```Simpl.getInstance().isUserApproved(...)``` call along with the passed ```SimplUser``` object. You can access this ```SimplUser``` instance using ```Simpl.getInstance().getSession().getSimplUser()```.
+* The result of  ```Simpl.getInstance().isUserApproved(...)``` is also cached in the current session and reused during current session of ```Simpl```. You can access this result using ```Simpl.getInstance().getSession().getUserApproval()``` method.
+* This feature is still in beta, so ping us @ help@getsimpl.com for any help or issue.
 
 ## Customizing ```SimplButton```
 We allow customizing SimplButton as per your branding needs. For using style attributes (in your XML layout SimplButton tag) add ```xmlns:simpl="http://schemas.android.com/apk/res-auto"``` to the top-most ViewGroup (i.e. parent view) of your layout file. 
