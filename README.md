@@ -137,6 +137,11 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
     void onSuccess(final boolean status, final boolean showSimplIntroduction){
     }
     /**
+     * Called when transaction is cancelled by user
+     */
+    void onCancelled(){
+    }
+    /**
      * Called when opration is unsuccessful
      *
      * @param throwable reason of the exception. Use throwable.getMessage() to show user readable error
