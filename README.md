@@ -147,7 +147,7 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
 ```
 __What is ```showSimplIntroduction``` parameter in ```onSuccess```?__
 
-A. Simpl is a platform, which can be accessed on web as well as on mobiles. So this boolean indicates that if the user has used Simpl before on any other platform. In other words, this boolean indicates that if the user is aware of Simpl payment method or not. If boolean value is ```true``` then user needs to be introduced to Simpl payment method, and in case it is ```false```, user already knows what is Simpl as he as already transacted using Simpl.
+A. Simpl is a platform, which can be accessed on web as well as on mobiles. So this boolean indicates that if the user has used Simpl before on any other platform. In other words, this boolean indicates that if the user is aware of Simpl payment method or not. If boolean value is ```true``` then user needs to be introduced to Simpl payment method, and in case it is ```false```, user already knows Simpl as he has already transacted using Simpl.
 
 ## Using ```SimplSession```
 ```SimplSession``` is a session storage used for storing Simpl modules to use them across activities. There are three methods provided by ```SimplSession``` class :
