@@ -239,7 +239,7 @@ Add following line to your proguard rules.
 Please refer [this](https://github.com/GetSimpl/simpl-android-sdk-integration-example) repository while integrting Simpl Android SDK into your App.
 
 # Issues
-You can report issues/feature requests related with Android SDK [here](https://github.com/GetSimpl/simpl-android-sdk-integration-example/issues?q=is%3Aopen+is%3Aissue)
+You can report issues/feature requests related with Android SDK [here](https://github.com/GetSimpl/simpl-android-sdk-integration-example/issues?q=is%3Aopen+is%3Aissue).
 
 # FAQs
 
