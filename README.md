@@ -239,26 +239,26 @@ public static float spToPx(final Context context, float sp){
 If you want to use your custom view/button for triggering the Simpl checkout flow, then use any of the following API methods.
 ```java
 /**
- * To perform a transaction
+ * To authorize a transaction
  *
  * @param context                      Current {@link Context}
  * @param user                         {@link SimplUser} who is performing the transaction
  * @param amountInPaise                Amount in paise
  * @param authorizeTransactionListener {@link SimplAuthorizeTransactionListener} instance
  */
-public void performTransaction(final Context context,
+public void authorizeTransaction(final Context context,
                                final SimplUser user, 
                                final long amountInPaise,
                                final SimplAuthorizeTransactionListener authorizeTransactionListener){
 }
 /**
- * To perform a transaction
+ * To authorize a transaction
  *
  * @param context                      Current {@link Context}
  * @param transaction                  {@link SimplTransaction} to be performed
  * @param authorizeTransactionListener {@link SimplAuthorizeTransactionListener} instance
  */
-public void performTransaction(final Context context,
+public void authorizeTransaction(final Context context,
                                final SimplTransaction transaction,
                                final SimplAuthorizeTransactionListener authorizeTransactionListener) {
 }
@@ -271,7 +271,7 @@ Button normalButton = (Button) findViewById(R.id.normal_button);
 normalButton.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        Simpl.getInstance().performTransaction(getActivity(), transaction, 
+        Simpl.getInstance().authorizeTransaction(getActivity(), transaction, 
         new SimplAuthorizeTransactionListener() {
             @Override
             public void onSuccess(SimplTransactionAuthorization transactionAuthorization) {
