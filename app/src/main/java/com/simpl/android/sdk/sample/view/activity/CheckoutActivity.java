@@ -49,7 +49,6 @@ public class CheckoutActivity extends AppCompatActivity {
         SimplButton simplButton = (SimplButton) findViewById(com.simpl.android.sdk.sample.R.id.pay_by_simple);
         // Customizing simpl button via code
         simplButton.setTitleTextTypeface(Typefaces.get(Typefaces.Type.SOURCE_SANS_SEMI_BOLD));
-        ;
         simplButton.setTitleTextColor(Color.WHITE);
         // done customizing via code
         simplButton.setTransaction(simplTransaction);
