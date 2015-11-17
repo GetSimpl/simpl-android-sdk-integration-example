@@ -235,7 +235,7 @@ public static float spToPx(final Context context, float sp){
 }
 ```
 
-## Using custom button/view for performing Simpl Transaction
+## Using custom button/view for authorizing a Simpl Transaction
 If you want to use your custom view/button for triggering the Simpl checkout flow, then use any of the following API methods.
 ```java
 /**
