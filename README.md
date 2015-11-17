@@ -118,6 +118,7 @@ button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
 __Important__
 > These callbacks are returned on a background thread. If you are performing any UI related work on these 
 > callbacks, please use [Handler](http://developer.android.com/reference/android/os/Handler.html) or [runOnUIThread](http://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable)).
+
 > If user is not approved to use Simpl, SimplButton visibility is set to `GONE`.
 > If you want to take control of VISIBILITY then use isUserApproved method explained in the next bit.
 
