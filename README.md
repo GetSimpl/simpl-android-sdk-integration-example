@@ -249,8 +249,7 @@ If you want to use your custom view/button for triggering the Simpl checkout flo
 public void authorizeTransaction(final Context context,
                                final SimplUser user, 
                                final long amountInPaise,
-                               final SimplAuthorizeTransactionListener authorizeTransactionListener){
-}
+                               final SimplAuthorizeTransactionListener authorizeTransactionListener);
 /**
  * To authorize a transaction
  *
@@ -260,8 +259,7 @@ public void authorizeTransaction(final Context context,
  */
 public void authorizeTransaction(final Context context,
                                final SimplTransaction transaction,
-                               final SimplAuthorizeTransactionListener authorizeTransactionListener) {
-}
+                               final SimplAuthorizeTransactionListener authorizeTransactionListener);
 ```
 Example
 ```java
