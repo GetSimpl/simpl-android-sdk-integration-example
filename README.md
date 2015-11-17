@@ -115,7 +115,11 @@ button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
     }
 });
 ```
-> __Important__ 
+__Important__
+> These callbacks are returned on a background thread. If you are performing any UI related work on these 
+> callbacks, please use [Handler](http://developer.android.com/reference/android/os/Handler.html) or [runOnUIThread](http://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable)).
+
+__Important__ 
 > If user is not approved to use Simpl, SimplButton visibility is set to `GONE`.
 > If you want to take control of VISIBILITY then use isUserApproved method explained in the next bit.
 
@@ -145,6 +149,10 @@ Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
     }
 });
 ```
+__Important__
+> These callbacks are returned on a background thread. If you are performing any UI related work on these 
+> callbacks, please use [Handler](http://developer.android.com/reference/android/os/Handler.html) or [runOnUIThread](http://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable)).
+
 __What is ```showSimplIntroduction``` parameter in ```onSuccess```?__
 
 A. Simpl is a platform, which can be accessed on web as well as on mobiles. So this boolean indicates that if the user has used Simpl before on any other platform. In other words, this boolean indicates that if the user is aware of Simpl payment method or not. If boolean value is ```true``` then user needs to be introduced to Simpl payment method, and in case it is ```false```, user already knows Simpl as he has already transacted using Simpl.
