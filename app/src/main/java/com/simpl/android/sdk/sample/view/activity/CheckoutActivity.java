@@ -13,12 +13,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.simpl.android.sdk.Simpl;
 import com.simpl.android.sdk.SimplAuthorizeTransactionListener;
 import com.simpl.android.sdk.SimplButton;
 import com.simpl.android.sdk.SimplTransaction;
 import com.simpl.android.sdk.SimplTransactionAuthorization;
+import com.simpl.android.sdk.sample.R;
 import com.simpl.android.sdk.utils.Typefaces;
 
 /**
@@ -45,6 +49,37 @@ public class CheckoutActivity extends AppCompatActivity {
             finish();
             return;
         }
+
+        // Initializing the normal button
+        Button normalButton = (Button) findViewById(R.id.normal_button);
+        normalButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Simpl.getInstance().authorizeTransaction(CheckoutActivity.this,
+                        simplTransaction,
+                        new SimplAuthorizeTransactionListener() {
+                            @Override
+                            public void onSuccess(SimplTransactionAuthorization transactionAuthorization) {
+                                Log.d(TAG, transactionAuthorization.toString());
+                                Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
+                                        "" + transactionAuthorization.toString(), Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onCancelled() {
+                                Toast.makeText(getApplicationContext(), "On cancelled by user", Toast.LENGTH_LONG)
+                                        .show();
+                            }
+
+                            @Override
+                            public void onError(final Throwable throwable) {
+                                Log.e(TAG, "While authorizing a transaction", throwable);
+                                Toast.makeText(getApplicationContext(), "Error " + throwable.getMessage(), Toast.LENGTH_LONG)
+                                        .show();
+                            }
+                        });
+            }
+        });
         // Getting hold of the SimplButton
         SimplButton simplButton = (SimplButton) findViewById(com.simpl.android.sdk.sample.R.id.pay_by_simple);
         // Customizing simpl button via code

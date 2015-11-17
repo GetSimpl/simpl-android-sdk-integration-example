@@ -8,34 +8,38 @@
   ~ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER ON AN "AS IS" BASIS AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED, AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   -->
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:simpl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:simpl="http://schemas.android.com/apk/res-auto"
+    android:animateLayoutChanges="true"
     android:fitsSystemWindows="true"
-    android:animateLayoutChanges="true">
+    android:orientation="vertical">
 
     <View
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_alignParentTop="true"
         android:background="@color/__simpl_blue_grey"/>
 
     <com.simpl.android.sdk.SimplButton
-        android:animateLayoutChanges="true"
         android:id="@+id/pay_by_simple"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        simpl:simpl_buttonHeight="24dp"
-        android:layout_below="@id/top"/>
+        android:animateLayoutChanges="true"
+        simpl:simpl_buttonHeight="24dp"/>
+
+    <Button
+        android:id="@+id/normal_button"
+        android:text="Simpl Checkout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"/>
 
     <View
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/pay_by_simple"
         android:background="@color/__simpl_blue_grey"/>
 
-</RelativeLayout>
+</LinearLayout>
