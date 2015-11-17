@@ -276,6 +276,11 @@ You can report issues/feature requests related with Android SDK [here](https://g
 
 -> This is also the result of redirect failure. Just retry building the app once or twice. If the issue persists contact help@getsimpl.com.
 
+3) Clicking close [x] button inside SDK, does not close the screen ?
+
+-> All the SDK callbacks are returned on a background thread. If you are performing any UI related work on these  callbacks, please use [Handler](http://developer.android.com/reference/android/os/Handler.html) or [runOnUIThread](http://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable)).
+
+
 # Licence
 Copyright © 2015, Get Simpl Technologies Private Limited
 All rights reserved.
