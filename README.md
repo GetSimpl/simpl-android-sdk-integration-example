@@ -17,7 +17,7 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your Andro
 * And then add Simpl SDK as dependency.
 ```groovy
 dependencies {
-    compile "com.simpl.android:sdk:1.0.4"
+    compile "com.simpl.android:sdk:1.0.5"
 }
 ```
 __Important__ 
@@ -34,7 +34,7 @@ Add following dependency and repository to your pom.xml
     <dependency>
         <groupId>com.simpl.android</groupId>
         <artifactId>sdk</artifactId>
-        <version>1.0.4</version>
+        <version>1.0.5</version>
     </dependency>
 </dependencies>
 
@@ -197,7 +197,6 @@ Title Text|```simpl:simpl_titleText="Buy with Simpl"```|```simplButton.setTitleT
 Button Color|```simpl:simpl_buttonColor="@color/white"```|```simplButton.setButtonColor(Color.WHITE)```|
 Button Height|```simpl:simpl_buttonHeight="24dp"```|```simplButton.setButtonHeight(dpToPx(20))```|
 Button Shadow Color|```simpl:simpl_buttonShadowColor="@color/white"```|```simplButton.setButtonShadowColor(Color.BLACK)```|
-Separator Color|```simpl:simpl_separatorColor="@color/black"```|```simplButton.setSeparatorColor(Color.BLACK);```|
 Title Typeface||```simplButton.setTitleTextTypeface(typeface)```|
 Powered By Text Color|```simpl:simpl_poweredByTextColor="@color/white"```|```simplButton.setPoweredByTextColor(Color.BLACK)```|
 
