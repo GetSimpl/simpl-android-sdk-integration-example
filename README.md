@@ -17,7 +17,7 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your Andro
 * And then add Simpl SDK as dependency.
 ```groovy
 dependencies {
-    compile "com.simpl.android:sdk:1.0.5"
+    compile "com.simpl.android:sdk:1.0.6"
 }
 ```
 __Important__ 
@@ -34,7 +34,7 @@ Add following dependency and repository to your pom.xml
     <dependency>
         <groupId>com.simpl.android</groupId>
         <artifactId>sdk</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
     </dependency>
 </dependencies>
 
@@ -233,6 +233,67 @@ public static float spToPx(final Context context, float sp){
     final float scale = context.getResources().getDisplayMetrics().scaledDensity;
     return sp * scale;
 }
+```
+
+## Using custom button/view for performing Simpl Transaction
+If you want to use your custom view/button for triggering the Simpl checkout flow, then use any of the following API methods.
+```java
+/**
+ * To perform a transaction
+ *
+ * @param context                      Current {@link Context}
+ * @param user                         {@link SimplUser} who is performing the transaction
+ * @param amountInPaise                Amount in paise
+ * @param authorizeTransactionListener {@link SimplAuthorizeTransactionListener} instance
+ */
+public void performTransaction(final Context context,
+                               final SimplUser user, 
+                               final long amountInPaise,
+                               final SimplAuthorizeTransactionListener authorizeTransactionListener){
+}
+/**
+ * To perform a transaction
+ *
+ * @param context                      Current {@link Context}
+ * @param transaction                  {@link SimplTransaction} to be performed
+ * @param authorizeTransactionListener {@link SimplAuthorizeTransactionListener} instance
+ */
+public void performTransaction(final Context context,
+                               final SimplTransaction transaction,
+                               final SimplAuthorizeTransactionListener authorizeTransactionListener) {
+}
+```
+Example
+```java
+SimplUser user = new SimplUser(emailAddress, phoneNumber);
+SimplTransaction transaction = new SimplTransaction(user, amountInPaise);
+Button normalButton = (Button) findViewById(R.id.normal_button);
+normalButton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Simpl.getInstance().performTransaction(getActivity(), transaction, 
+        new SimplAuthorizeTransactionListener() {
+            @Override
+            public void onSuccess(SimplTransactionAuthorization transactionAuthorization) {
+                Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
+                        "" + transactionAuthorization.toString(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled() {
+                Toast.makeText(getApplicationContext(), "On cancelled by user", Toast.LENGTH_LONG)
+                        .show();
+            }
+
+            @Override
+            public void onError(final Throwable throwable) {
+                Log.e(TAG, "While authorizing a transaction", throwable);
+                Toast.makeText(getApplicationContext(), "Error " + throwable.getMessage(), Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
+    }
+});
 ```
 
 ## Proguard rules
