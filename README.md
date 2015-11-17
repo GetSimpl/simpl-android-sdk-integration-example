@@ -261,7 +261,7 @@ public void authorizeTransaction(final Context context,
                                final SimplTransaction transaction,
                                final SimplAuthorizeTransactionListener authorizeTransactionListener);
 ```
-Example
+__Example__
 ```java
 SimplUser user = new SimplUser(emailAddress, phoneNumber);
 SimplTransaction transaction = new SimplTransaction(user, amountInPaise);
