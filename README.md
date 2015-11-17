@@ -192,7 +192,7 @@ Example Layout File:
 Property|Style Attribute| Java Method|
 ---------|---|------|
 Title Color|```simpl:simpl_titleTextColor="@color/black"```|```simplButton.setTitleTextColor(Color.BLUE);```| 
-Title Text Size|```simpl:simpl_titleTextSize="12sp"```|```simplButton.setTitleTextSize(dpToPx(12));```|
+Title Text Size|```simpl:simpl_titleTextSize="12sp"```|```simplButton.setTitleTextSize(spToPx(12));```|
 Title Text|```simpl:simpl_titleText="Buy with Simpl"```|```simplButton.setTitleText("Buy with Simpl")```|
 Button Color|```simpl:simpl_buttonColor="@color/white"```|```simplButton.setButtonColor(Color.WHITE)```|
 Button Height|```simpl:simpl_buttonHeight="24dp"```|```simplButton.setButtonHeight(dpToPx(20))```|
