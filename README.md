@@ -17,7 +17,7 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your Andro
 * And then add Simpl SDK as dependency.
 ```groovy
 dependencies {
-    compile "com.simpl.android:sdk:1.0.6"
+    compile "com.simpl.android:sdk:1.0.7"
 }
 ```
 __Important__ 
@@ -34,7 +34,7 @@ Add following dependency and repository to your pom.xml
     <dependency>
         <groupId>com.simpl.android</groupId>
         <artifactId>sdk</artifactId>
-        <version>1.0.6</version>
+        <version>1.0.7</version>
     </dependency>
 </dependencies>
 
@@ -100,11 +100,6 @@ button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
      * @param auth {@link Authorization} module
      */
     void onSuccess(final Authorization auth){
-    }
-    /**
-     * Called when transaction is cancelled by user
-     */
-    void onCancelled(){
     }
     /**
      * Called when opration is unsuccessful
