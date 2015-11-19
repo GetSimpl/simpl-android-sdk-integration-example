@@ -59,23 +59,40 @@ public class CheckoutActivity extends AppCompatActivity {
                         simplTransaction,
                         new SimplAuthorizeTransactionListener() {
                             @Override
-                            public void onSuccess(SimplTransactionAuthorization transactionAuthorization) {
+                            public void onSuccess(final SimplTransactionAuthorization
+                                                          transactionAuthorization) {
                                 Log.d(TAG, transactionAuthorization.toString());
-                                Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
-                                        "" + transactionAuthorization.toString(), Toast.LENGTH_LONG).show();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
+                                                "" + transactionAuthorization.toString(), Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
 
                             @Override
                             public void onCancelled() {
-                                Toast.makeText(getApplicationContext(), "On cancelled by user", Toast.LENGTH_LONG)
-                                        .show();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "On cancelled by user", Toast.LENGTH_LONG)
+                                                .show();
+                                    }
+                                });
                             }
 
                             @Override
                             public void onError(final Throwable throwable) {
                                 Log.e(TAG, "While authorizing a transaction", throwable);
-                                Toast.makeText(getApplicationContext(), "Error " + throwable.getMessage(), Toast.LENGTH_LONG)
-                                        .show();
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getApplicationContext(), "Error " + throwable.getMessage(), Toast.LENGTH_LONG)
+                                                .show();
+                                    }
+                                });
+
                             }
                         });
             }
@@ -89,23 +106,38 @@ public class CheckoutActivity extends AppCompatActivity {
         simplButton.setTransaction(simplTransaction);
         simplButton.setSimplAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
             @Override
-            public void onSuccess(SimplTransactionAuthorization transactionAuthorization) {
+            public void onSuccess(final SimplTransactionAuthorization transactionAuthorization) {
                 Log.d(TAG, transactionAuthorization.toString());
-                Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
-                        "" + transactionAuthorization.toString(), Toast.LENGTH_LONG).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
+                                "" + transactionAuthorization.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
             public void onCancelled() {
-                Toast.makeText(getApplicationContext(), "Use cancelled transaction", Toast
-                        .LENGTH_LONG).show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Use cancelled transaction", Toast
+                                .LENGTH_LONG).show();
+                    }
+                });
             }
 
             @Override
             public void onError(final Throwable throwable) {
                 Log.e(TAG, "While authorizing a transaction", throwable);
-                Toast.makeText(getApplicationContext(), "Error " + throwable.getMessage(), Toast.LENGTH_LONG)
-                        .show();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Error " + throwable.getMessage(), Toast.LENGTH_LONG)
+                                .show();
+                    }
+                });
             }
         });
     }

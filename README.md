@@ -17,7 +17,7 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your Andro
 * And then add Simpl SDK as dependency.
 ```groovy
 dependencies {
-    compile "com.simpl.android:sdk:1.0.7"
+    compile "com.simpl.android:sdk:1.0.8"
 }
 ```
 __Important__ 
@@ -34,7 +34,7 @@ Add following dependency and repository to your pom.xml
     <dependency>
         <groupId>com.simpl.android</groupId>
         <artifactId>sdk</artifactId>
-        <version>1.0.7</version>
+        <version>1.0.8</version>
     </dependency>
 </dependencies>
 
@@ -268,21 +268,14 @@ normalButton.setOnClickListener(new View.OnClickListener() {
         new SimplAuthorizeTransactionListener() {
             @Override
             public void onSuccess(SimplTransactionAuthorization transactionAuthorization) {
-                Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
-                        "" + transactionAuthorization.toString(), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onCancelled() {
-                Toast.makeText(getApplicationContext(), "On cancelled by user", Toast.LENGTH_LONG)
-                        .show();
             }
 
             @Override
             public void onError(final Throwable throwable) {
-                Log.e(TAG, "While authorizing a transaction", throwable);
-                Toast.makeText(getApplicationContext(), "Error " + throwable.getMessage(), Toast.LENGTH_LONG)
-                        .show();
             }
         });
     }
