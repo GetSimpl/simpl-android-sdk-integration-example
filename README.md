@@ -271,10 +271,6 @@ normalButton.setOnClickListener(new View.OnClickListener() {
             }
 
             @Override
-            public void onCancelled() {
-            }
-
-            @Override
             public void onError(final Throwable throwable) {
             }
         });
