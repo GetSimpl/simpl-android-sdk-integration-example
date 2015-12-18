@@ -71,16 +71,7 @@ public class CheckoutActivity extends AppCompatActivity {
                                 });
                             }
 
-                            @Override
-                            public void onCancelled() {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getApplicationContext(), "On cancelled by user", Toast.LENGTH_LONG)
-                                                .show();
-                                    }
-                                });
-                            }
+
 
                             @Override
                             public void onError(final Throwable throwable) {
@@ -113,17 +104,6 @@ public class CheckoutActivity extends AppCompatActivity {
                     public void run() {
                         Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
                                 "" + transactionAuthorization.toString(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Use cancelled transaction", Toast
-                                .LENGTH_LONG).show();
                     }
                 });
             }
