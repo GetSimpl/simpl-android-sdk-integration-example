@@ -72,17 +72,6 @@ public class CheckoutActivity extends AppCompatActivity {
                             }
 
                             @Override
-                            public void onCancelled() {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getApplicationContext(), "On cancelled by user", Toast.LENGTH_LONG)
-                                                .show();
-                                    }
-                                });
-                            }
-
-                            @Override
                             public void onError(final Throwable throwable) {
                                 Log.e(TAG, "While authorizing a transaction", throwable);
                                 runOnUiThread(new Runnable() {
