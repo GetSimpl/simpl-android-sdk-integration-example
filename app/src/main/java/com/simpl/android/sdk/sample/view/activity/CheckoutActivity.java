@@ -9,8 +9,8 @@
 
 package com.simpl.android.sdk.sample.view.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +23,6 @@ import com.simpl.android.sdk.SimplButton;
 import com.simpl.android.sdk.SimplTransaction;
 import com.simpl.android.sdk.SimplTransactionAuthorization;
 import com.simpl.android.sdk.sample.R;
-import com.simpl.android.sdk.utils.Typefaces;
 
 /**
  * Final checkout activity where {@link SimplButton} is inflated in the view.
@@ -36,33 +35,25 @@ public class CheckoutActivity extends AppCompatActivity {
      * TAG for logging
      */
     private static final String TAG = "##CheckoutActivity##";
-
+    private SimplTransaction mSimplTransaction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.simpl.android.sdk.sample.R.layout.activity_checkout);
         // Creating the transaction from the extras
-        final SimplTransaction simplTransaction = getIntent().getExtras().getParcelable
-                ("transaction");
-        if (simplTransaction == null) {
-            Log.e(TAG, "Transaction can not be null");
-            finish();
-            return;
-        }
-
-        // Initializing the normal button
+        final Handler handler = new Handler();
+        mSimplTransaction = getIntent().getExtras().getParcelable("transaction");
         Button normalButton = (Button) findViewById(R.id.normal_button);
         normalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Simpl.getInstance().authorizeTransaction(CheckoutActivity.this,
-                        simplTransaction,
-                        new SimplAuthorizeTransactionListener() {
+                Simpl.getInstance().authorizeTransaction(CheckoutActivity.this,mSimplTransaction.getAmountInPaise())
+                        .execute(new SimplAuthorizeTransactionListener() {
                             @Override
                             public void onSuccess(final SimplTransactionAuthorization
                                                           transactionAuthorization) {
                                 Log.d(TAG, transactionAuthorization.toString());
-                                runOnUiThread(new Runnable() {
+                                handler.post(new Runnable() {
                                     @Override
                                     public void run() {
                                         Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
@@ -72,11 +63,10 @@ public class CheckoutActivity extends AppCompatActivity {
                             }
 
 
-
                             @Override
                             public void onError(final Throwable throwable) {
                                 Log.e(TAG, "While authorizing a transaction", throwable);
-                                runOnUiThread(new Runnable() {
+                                handler.post(new Runnable() {
                                     @Override
                                     public void run() {
                                         Toast.makeText(getApplicationContext(), "Error " + throwable.getMessage(), Toast.LENGTH_LONG)
@@ -88,18 +78,13 @@ public class CheckoutActivity extends AppCompatActivity {
                         });
             }
         });
-        // Getting hold of the SimplButton
-        SimplButton simplButton = (SimplButton) findViewById(com.simpl.android.sdk.sample.R.id.pay_by_simple);
-        // Customizing simpl button via code
-        simplButton.setTitleTextTypeface(Typefaces.get(Typefaces.Type.SOURCE_SANS_SEMI_BOLD));
-        simplButton.setTitleTextColor(Color.WHITE);
-        // done customizing via code
-        simplButton.setTransaction(simplTransaction);
+        SimplButton simplButton = (SimplButton) findViewById(R.id.pay_by_simple);
+        simplButton.setTransaction(mSimplTransaction);
         simplButton.setSimplAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
             @Override
             public void onSuccess(final SimplTransactionAuthorization transactionAuthorization) {
                 Log.d(TAG, transactionAuthorization.toString());
-                runOnUiThread(new Runnable() {
+                handler.post(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
@@ -108,10 +93,11 @@ public class CheckoutActivity extends AppCompatActivity {
                 });
             }
 
+
             @Override
             public void onError(final Throwable throwable) {
                 Log.e(TAG, "While authorizing a transaction", throwable);
-                runOnUiThread(new Runnable() {
+                handler.post(new Runnable() {
                     @Override
                     public void run() {
                         Toast.makeText(getApplicationContext(), "Error " + throwable.getMessage(), Toast.LENGTH_LONG)

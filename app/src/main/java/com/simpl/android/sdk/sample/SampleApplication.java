@@ -34,6 +34,7 @@ public class SampleApplication extends Application {
     public void onCreate() {
         super.onCreate();
         // For initializing the Simpl SDK
-        Simpl.init(this, true);
+        Simpl.init(this);
+        Simpl.getInstance().runInSandboxMode();
     }
 }
