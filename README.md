@@ -6,6 +6,8 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your Andro
 ### Gradle (Android Studio)
 * Add Simpl maven repository to your applications build.gradle.
 
+![alt Help](https://github.com/GetSimpl/simpl-android-sdk-integration-example/blob/master/images/gradle_file.png)
+
 ```groovy
     repositories {
         ...
