@@ -6,8 +6,6 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your Andro
 ### Gradle (Android Studio)
 * Add Simpl maven repository to your applications build.gradle.
 
-![alt Help](https://raw.githubusercontent.com/GetSimpl/simpl-android-sdk-integration-example/integration/v1.0.4/images/gradle_file.png)
-
 ```groovy
     repositories {
         ...
@@ -17,7 +15,7 @@ Simpl's Android SDK makes it easy for you to integrate Simpl Buy into your Andro
 * And then add Simpl SDK as dependency.
 ```groovy
 dependencies {
-    compile "com.simpl.android:sdk:1.0.14"
+    compile "com.simpl.android:sdk:1.1.+"
 }
 ```
 __Important__ 
@@ -34,7 +32,7 @@ Add following dependency and repository to your pom.xml
     <dependency>
         <groupId>com.simpl.android</groupId>
         <artifactId>sdk</artifactId>
-        <version>1.0.14</version>
+        <version>LATEST</version>
     </dependency>
 </dependencies>
 
@@ -66,14 +64,20 @@ In AndroidManifest.xml of your application project add the following permission 
 /**
  * For initializing Simpl SDK
  *
- * @param application      Current {@link Application} instance
- * @param runInSandboxMode Boolean flag that indicates if SDK should run in Sandbox mode. If true SDK will run in Sandbox
- * mode else It will run in Production mode
+ * @param application      Current {@link Application} instance  
  */
-Simpl.init(application, runInSandboxMode);
+Simpl.init(application);
 ```
 > We do not store any reference to ```application``` parameter, so there is no possibility of cyclic reference.
 
+### To run Simpl in Sandbox mode
+```java
+Simpl.getInstance().runInSandboxMode();
+```
+### If you are working with hashed phone numbers for approval call
+```java
+Simpl.getInstance().usingHashedPhoneNumber();
+```
 ## Integrating using official Simpl button
 ### Add following code to your layout file
 
@@ -92,7 +96,10 @@ Simpl.init(application, runInSandboxMode);
 SimplUser user = new SimplUser(emailAddress, phoneNumber);
 SimplTransaction transaction = new SimplTransaction(user, amountInPaise);
 SimplButton button = (SimplButton) findViewById(R.id.simpl_button);
-button.setTransaction(transaction);
+button.setTransaction(transaction, 
+    SimplParam.create("user_location","18.9750,72.8258")
+    SimplParam.create("theatre_location","18.9750,72.8258")
+    SimplParam.create("member_since","(2016-01-08"));
 button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
     /**
      * Called when operation is successful
@@ -110,32 +117,26 @@ button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
     }
 });
 ```
-__Important__
-> These callbacks are returned on a background thread. If you are performing any UI related work on these 
-> callbacks, please use [Handler](http://developer.android.com/reference/android/os/Handler.html) or [runOnUIThread](http://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable)).
-
-> If user is not approved to use Simpl, SimplButton visibility is set to `GONE`.
-> If you want to take control of VISIBILITY then use isUserApproved method explained in the next bit.
-
-### For checking if user is approved
-__Important__
-> It's not compulsory to call this method before calling ```setTransaction()``` method on ```SimplButton```. This is a helper
-> method to be used as and when needed. For example : To introduce your user to Simpl payment method in your app.
-
+#### If you are using hashedPhoneNumbers
 ```java
 SimplUser user = new SimplUser(emailAddress, phoneNumber);
-Simpl.getInstance().isUserApproved(user, new SimplUserApprovalListener(){
-   /**
+SimplTransaction transaction = new SimplTransaction(user, amountInPaise);
+SimplButton button = (SimplButton) findViewById(R.id.simpl_button);
+button.addUserApprovalParam("user_location","18.9750,72.8258");
+button.addUserApprovalParam("member_since","2016-01-08");
+button.setTransaction(hashedPhoneNumber, emailAddress, amountInPaise,
+    SimplParam.create("phone_number","9977880999")
+    SimplParam.create("theatre_location","18.9750,72.8258"));    
+button.setAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
+    /**
      * Called when operation is successful
      *
-     * @param status                status of approval : true if user is approved and false if he is not.
-     * @param showSimplIntroduction Boolean to indicate that User should be shown an introduction
-     *                              modal related to Simpl
+     * @param auth {@link Authorization} module
      */
-    void onSuccess(final boolean status, final boolean showSimplIntroduction){
+    void onSuccess(final Authorization auth){
     }
     /**
-     * Called when opration is unsuccessful
+     * Called when operation is unsuccessful
      *
      * @param throwable reason of the exception. Use throwable.getMessage() to show user readable error
      */
@@ -147,26 +148,10 @@ __Important__
 > These callbacks are returned on a background thread. If you are performing any UI related work on these 
 > callbacks, please use [Handler](http://developer.android.com/reference/android/os/Handler.html) or [runOnUIThread](http://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable)).
 
-__What is ```showSimplIntroduction``` parameter in ```onSuccess```?__
+> If user is not approved to use Simpl, SimplButton visibility is set to `GONE`.
+> If you want to take control of VISIBILITY then use isUserApproved method explained in the next bit.
 
-A. Simpl is a platform, which can be accessed on web as well as on mobiles. So this boolean indicates that if the user has used Simpl before on any other platform. In other words, this boolean indicates that if the user is aware of Simpl payment method or not. If boolean value is ```true``` then user needs to be introduced to Simpl payment method, and in case it is ```false```, user already knows Simpl as he has already transacted using Simpl.
-
-## Using ```SimplSession```
-```SimplSession``` is a session storage used for storing Simpl modules to use them across activities. There are three methods provided by ```SimplSession``` class :
-```java
-public SimplUser getSimplUser();
-
-public void setSimplUser(SimplUser simplUser);
-
-public UserApproval getUserApproval();
-```
-* You can get access to the current ```SimplSession``` using ```Simpl.getInstance().getSession()``` method. 
-* ```getUserApproval()``` will return a null object, unless you use ```Simpl.getInstance().isUserApproved(...)``` method. 
-* ```SimplSession``` caches the result of ```Simpl.getInstance().isUserApproved(...)``` call along with the passed ```SimplUser``` object. You can access this ```SimplUser``` instance using ```Simpl.getInstance().getSession().getSimplUser()```.
-* The result of  ```Simpl.getInstance().isUserApproved(...)``` is also cached in the current session and reused during current session of ```Simpl```. You can access this result using ```Simpl.getInstance().getSession().getUserApproval()``` method.
-* This feature is still in beta, so ping us @ help@getsimpl.com for any help or issue.
-
-## Customizing ```SimplButton```
+### Customizing ```SimplButton```
 We allow customizing SimplButton as per your branding needs. For using style attributes (in your XML layout SimplButton tag) add ```xmlns:simpl="http://schemas.android.com/apk/res-auto"``` to the top-most ViewGroup (i.e. parent view) of your layout file. 
 
 Example Layout File:
@@ -203,6 +188,108 @@ Title Typeface||```simplButton.setTitleTextTypeface(typeface)```|
 Powered By Text Color|```simpl:simpl_poweredByTextColor="@color/white"```|```simplButton.setPoweredByTextColor(Color.BLACK)```|
 
 
+## Using custom button
+
+### First check if user is approved to use Simpl platform
+```java
+SimplUser user = new SimplUser(emailAddress, phoneNumber);
+Simpl.getInstance().isUserApproved(user)
+                    .addParam("user_location","18.9750,72.8258")
+                    .addParam("theatre_location","18.9750,72.8258")
+                    .addParam("member_since","(2016-01-08")                                                     
+                    .execute(new SimplUserApprovalListener(){
+                                /**
+                                  * Called when operation is successful
+                                  *
+                                  * @param status                status of approval : true if user is approved and false if he is not.
+                                  * @param showSimplIntroduction Boolean to indicate that User should be shown an introduction
+                                  *                              modal related to Simpl
+                                  */
+                                 void onSuccess(final boolean status, final boolean showSimplIntroduction){
+                                 }
+                                 /**
+                                  * Called when opration is unsuccessful
+                                  *
+                                  * @param throwable reason of the exception. Use throwable.getMessage() to show user readable error
+                                  */
+                                 void onError(final Throwable throwable){
+                                 }
+                             });
+```
+* We track Phone Manufacturer and Model with this API call, which requires no special permissions in the AndroidManifest. Technically we are using `Build.MANUFACTURER` and `Build.MODEL.`
+* Also we have routines for tracking location of the device and IMEI number along with this API 
+call. But as this requires special permissions in the AndroidManifest, we will check if the 
+current package has the corresponding permission or not, and we will track that info only if it 
+is available.
+
+__Important__
+> These callbacks are returned on a background thread. If you are performing any UI related work on these 
+> callbacks, please use [Handler](http://developer.android.com/reference/android/os/Handler.html) or [runOnUIThread](http://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable)).
+
+__What is ```showSimplIntroduction``` parameter in ```onSuccess```?__
+
+A. Simpl is a platform, which can be accessed on web as well as on mobiles. So this boolean indicates that if the user has used Simpl before on any other platform. In other words, this boolean indicates that if the user is aware of Simpl payment method or not. If boolean value is ```true``` then user needs to be introduced to Simpl payment method, and in case it is ```false```, user already knows Simpl as he has already transacted using Simpl.
+
+### When user clicks on the custom button
+Make sure that you have called ```isUserApproved``` API before calling this API.
+```java
+/**
+  * To authorize a transaction
+  *
+  * @param context                      Current {@link Context}
+  * @param transactionAmountInPaise     Transaction amount in paise  
+  */
+public SimplAuthorizeTransactionRequest authorizeTransaction(@NonNull final Context context,
+                                                             @NonNull final long 
+                                                             transactionAmountInPaise) 
+                                                             throws SimplException;                               
+```
+__Example__
+```java
+// You have called isUserApproved() in this or any previous activity
+Button normalButton = (Button) findViewById(R.id.normal_button);
+normalButton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        try{
+            Simpl.getInstance().authorizeTransaction(getActivity(), transactionAmountInPaise)
+                    //Sending extra params about the transaction
+                    .addParam("user_location","18.9750,72.8258")
+                    .execute(new SimplAuthorizeTransactionListener() {
+                         @Override
+                         public void onSuccess(SimplTransactionAuthorization transactionAuthorization) {
+                         }
+             
+                         @Override
+                         public void onError(final Throwable throwable) {
+                         }
+                     })
+         }catch(Exception exception){
+            //handle exception
+         }
+    }
+});
+```
+
+## Using ```SimplSession```
+```SimplSession``` is a session storage used for storing Simpl modules to use them across activities. There are three methods provided by ```SimplSession``` class :
+```java
+public SimplUser getSimplUser();
+
+public void setSimplUser(SimplUser simplUser);
+
+public UserApproval getUserApproval();
+```
+* You can get access to the current ```SimplSession``` using ```Simpl.getInstance().getSession()``` method. 
+* ```getUserApproval()``` will return a null object, unless you use ```Simpl.getInstance().isUserApproved(...)``` method. 
+* ```SimplSession``` caches the result of ```Simpl.getInstance().isUserApproved(...)``` call along with the passed ```SimplUser``` object. You can access this ```SimplUser``` instance using ```Simpl.getInstance().getSession().getSimplUser()```.
+* The result of  ```Simpl.getInstance().isUserApproved(...)``` is also cached in the current session and reused during current session of ```Simpl```. You can access this result using ```Simpl.getInstance().getSession().getUserApproval()``` method.
+* One session is valid for one transaction. As soon as the transaction is over, we destroy the 
+session. You will have to call authorize again.
+* This feature is still in beta, so ping us @ help@getsimpl.com for any help or issue.
+
+
+
 ### Helper Methods
 ```java
 /**
@@ -230,59 +317,8 @@ public static float spToPx(final Context context, float sp){
 }
 ```
 
-## Using custom button/view for authorizing a Simpl Transaction
-If you want to use your custom view/button for triggering the Simpl checkout flow, then use any of the following API methods.
-```java
-/**
- * To authorize a transaction
- *
- * @param context                      Current {@link Context}
- * @param user                         {@link SimplUser} who is performing the transaction
- * @param amountInPaise                Amount in paise
- * @param authorizeTransactionListener {@link SimplAuthorizeTransactionListener} instance
- */
-public void authorizeTransaction(final Context context,
-                               final SimplUser user, 
-                               final long amountInPaise,
-                               final SimplAuthorizeTransactionListener authorizeTransactionListener);
-/**
- * To authorize a transaction
- *
- * @param context                      Current {@link Context}
- * @param transaction                  {@link SimplTransaction} to be performed
- * @param authorizeTransactionListener {@link SimplAuthorizeTransactionListener} instance
- */
-public void authorizeTransaction(final Context context,
-                               final SimplTransaction transaction,
-                               final SimplAuthorizeTransactionListener authorizeTransactionListener);
-```
-__Example__
-```java
-SimplUser user = new SimplUser(emailAddress, phoneNumber);
-SimplTransaction transaction = new SimplTransaction(user, amountInPaise);
-Button normalButton = (Button) findViewById(R.id.normal_button);
-normalButton.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Simpl.getInstance().authorizeTransaction(getActivity(), transaction, 
-        new SimplAuthorizeTransactionListener() {
-            @Override
-            public void onSuccess(SimplTransactionAuthorization transactionAuthorization) {
-            }
-
-            @Override
-            public void onError(final Throwable throwable) {
-            }
-        });
-    }
-});
-```
-
 ## Proguard rules
-Add following line to your proguard rules.
-```groovy
--dontwarn org.apache.**
-```
+No need of any changes specific to us. We carry our proguard file along with the AAR.
 
 # Example
 Please refer [this](https://github.com/GetSimpl/simpl-android-sdk-integration-example) repository while integrating Simpl Android SDK into your App.
