@@ -76,10 +76,6 @@ Simpl.init(application);
 ```java
 Simpl.getInstance().runInSandboxMode();
 ```
-### If you are working with hashed phone numbers for approval call
-```java
-Simpl.getInstance().usingHashedPhoneNumber();
-```
 ## Integrating using official Simpl button
 ### Add following code to your layout file
 
