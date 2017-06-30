@@ -50,6 +50,9 @@ public class CheckoutActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Simpl.getInstance().authorizeTransaction(CheckoutActivity.this, mAmountInPaise)
+                            .addParam("user_location", "18.9750,72.8258")
+                            .addParam("order_id", "AB12ORD")
+                            .addParam("member_since", "2017-01-08")
                             .execute(new SimplAuthorizeTransactionListener() {
                                 @Override
                                 public void onSuccess(final SimplTransactionAuthorization
