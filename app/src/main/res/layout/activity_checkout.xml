@@ -22,18 +22,12 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"/>
 
-    <com.simpl.android.sdk.SimplButton
-        android:id="@+id/pay_by_simple"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        simpl:simpl_buttonHeight="48dp"
-        simpl:simpl_titleTextSize="18sp"/>
-
     <Button
         android:id="@+id/normal_button"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:visibility="gone"
         android:text="Simpl Checkout"/>
 
     <View

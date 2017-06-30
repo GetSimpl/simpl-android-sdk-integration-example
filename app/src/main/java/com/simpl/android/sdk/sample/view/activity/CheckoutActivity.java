@@ -19,93 +19,68 @@ import android.widget.Toast;
 
 import com.simpl.android.sdk.Simpl;
 import com.simpl.android.sdk.SimplAuthorizeTransactionListener;
-import com.simpl.android.sdk.SimplButton;
 import com.simpl.android.sdk.SimplTransaction;
 import com.simpl.android.sdk.SimplTransactionAuthorization;
 import com.simpl.android.sdk.sample.R;
 
 /**
- * Final checkout activity where {@link SimplButton} is inflated in the view.
  * Simpl SDK checks if the {@link com.simpl.android.sdk.SimplUser} from the provided
  * {@link SimplTransaction} is approved for using Simpl. If he is approved then user will see the
- * button, and if he is not, the {@link SimplButton} will set its visibility to GONE.
  */
 public class CheckoutActivity extends AppCompatActivity {
     /**
      * TAG for logging
      */
     private static final String TAG = "##CheckoutActivity##";
-    private SimplTransaction mSimplTransaction;
+    private long mAmountInPaise;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.simpl.android.sdk.sample.R.layout.activity_checkout);
         // Creating the transaction from the extras
         final Handler handler = new Handler();
-        mSimplTransaction = getIntent().getExtras().getParcelable("transaction");
+        mAmountInPaise = getIntent().getLongExtra("transaction", 0L);
+        final String buttonText = getIntent().getStringExtra("buttonText");
         Button normalButton = (Button) findViewById(R.id.normal_button);
-        normalButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Simpl.getInstance().authorizeTransaction(CheckoutActivity.this,mSimplTransaction.getAmountInPaise())
-                        .execute(new SimplAuthorizeTransactionListener() {
-                            @Override
-                            public void onSuccess(final SimplTransactionAuthorization
-                                                          transactionAuthorization) {
-                                Log.d(TAG, transactionAuthorization.toString());
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
-                                                "" + transactionAuthorization.toString(), Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            }
+        normalButton.setText(buttonText);
+        // Check with Simpl internal global variable either user is approved or not
+        if (Simpl.getInstance().isSimplApproved()) {
+            normalButton.setVisibility(View.VISIBLE);
+            normalButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Simpl.getInstance().authorizeTransaction(CheckoutActivity.this, mAmountInPaise)
+                            .execute(new SimplAuthorizeTransactionListener() {
+                                @Override
+                                public void onSuccess(final SimplTransactionAuthorization
+                                                              transactionAuthorization) {
+                                    Log.d(TAG, transactionAuthorization.toString());
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
+                                                    "" + transactionAuthorization.toString(), Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
 
 
-                            @Override
-                            public void onError(final Throwable throwable) {
-                                Log.e(TAG, "While authorizing a transaction", throwable);
-                                handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(getApplicationContext(), "Error " + throwable.getMessage(), Toast.LENGTH_LONG)
-                                                .show();
-                                    }
-                                });
+                                @Override
+                                public void onError(final Throwable throwable) {
+                                    Log.e(TAG, "While authorizing a transaction", throwable);
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(getApplicationContext(), "Error " + throwable.getMessage(), Toast.LENGTH_LONG)
+                                                    .show();
+                                        }
+                                    });
 
-                            }
-                        });
-            }
-        });
-        SimplButton simplButton = (SimplButton) findViewById(R.id.pay_by_simple);
-        simplButton.setTransaction(mSimplTransaction);
-        simplButton.setSimplAuthorizeTransactionListener(new SimplAuthorizeTransactionListener() {
-            @Override
-            public void onSuccess(final SimplTransactionAuthorization transactionAuthorization) {
-                Log.d(TAG, transactionAuthorization.toString());
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Transaction is successful with token => " +
-                                "" + transactionAuthorization.toString(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-
-
-            @Override
-            public void onError(final Throwable throwable) {
-                Log.e(TAG, "While authorizing a transaction", throwable);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "Error " + throwable.getMessage(), Toast.LENGTH_LONG)
-                                .show();
-                    }
-                });
-            }
-        });
+                                }
+                            });
+                }
+            });
+        }
     }
 
 

@@ -15,8 +15,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import com.simpl.android.sdk.Simpl;
 import com.simpl.android.sdk.SimplTransaction;
 import com.simpl.android.sdk.SimplUser;
+import com.simpl.android.sdk.SimplUserApprovalListenerV2;
+import com.simpl.android.sdk.SimplUserApprovalRequest;
+import com.simpl.android.sdk.sample.R;
 
 /**
  * Main activity of the app for setting up the user and transaction amount
@@ -36,17 +40,48 @@ public class SampleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.simpl.android.sdk.sample.R.layout.activity_sample);
-        findViewById(com.simpl.android.sdk.sample.R.id.set_user).setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_sample);
+        findViewById(R.id.set_user).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String emailAddress = ((EditText) findViewById(com.simpl.android.sdk.sample.R.id.email)).getText().toString();
-                String phoneNumber = ((EditText) findViewById(com.simpl.android.sdk.sample.R.id.phone_number)).getText().toString();
-                int transactionAmountInPaise = Integer.parseInt(((EditText) findViewById(com.simpl.android.sdk.sample.R.id
+                final String emailAddress = ((EditText) findViewById(R.id.email)).getText().toString();
+                final String phoneNumber = ((EditText) findViewById(R.id.phone_number)).getText().toString();
+                final long transactionAmountInPaise = Long.parseLong(((EditText) findViewById(R.id
                         .amount)).getText().toString());
-                startActivity(new Intent(getApplicationContext(), CheckoutActivity.class)
-                        .putExtra("transaction", new SimplTransaction(new SimplUser(emailAddress, phoneNumber
-                        ), transactionAmountInPaise)));
+
+                // Call Simpl approval request to check if user approved or not
+                SimplUser user = new SimplUser(emailAddress, phoneNumber);
+                Simpl.getInstance()
+                        .isUserApproved(user)
+                        .addParam("user_location", "18.9750,72.8258")
+                        .addParam("order_id", "AB12ORD")
+                        .addParam("transaction_amount_in_paise", String.valueOf(transactionAmountInPaise))
+                        .addParam("member_since", "2017-01-08")
+                        .execute(new SimplUserApprovalListenerV2() {
+                            @Override
+                            public void onSuccess(boolean status, final String buttonText, boolean showSimplIntroduction) {
+                                // Check the status, If (status is true-> User is approved and show the payment button
+                                // else don't)
+                                // Use "buttonText" to show the same on Payment button
+                                if (status) {
+                                    // Do your task like update UI either using handler or runOnUiThread
+                                    // as this callback return in background thread
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            startActivity(new Intent(SampleActivity.this, CheckoutActivity.class)
+                                                    .putExtra("transaction", transactionAmountInPaise)
+                                                    .putExtra("buttonText", buttonText));
+                                        }
+                                    });
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable throwable) {
+
+                            }
+                        });
             }
         });
 

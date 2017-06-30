@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email Address"
+        android:text="niraj@getsimpl.com"
         android:inputType="textEmailAddress"/>
 
     <EditText
@@ -30,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Phone Number"
+        android:text="9538651315"
         android:inputType="number"/>
 
     <EditText
@@ -37,6 +39,7 @@
         android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="250000"
         android:hint="Transaction amount in paise"/>
 
     <Button
