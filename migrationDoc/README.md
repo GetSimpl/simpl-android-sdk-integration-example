@@ -47,31 +47,31 @@ Simpl.getInstance().isUserApproved(user)
                    .addParam("transaction_amount_in_paise", String.valueOf(transactionAmountInPaise))
                    .addParam("member_since", "2017-01-08")
                    .execute(new SimplUserApprovalListenerV2() {
-                    /**
-                    * Called when operation is successful
-                    *
-                    * @param status                status of approval : true if user is approved and false if he is
-                    *                              not.
-                    * @param buttonText            Text that should appear on Simpl payment option
-                    * @param showSimplIntroduction Boolean to indicate that User should be shown an introduction
-                    *                              modal related to Simpl
-                    */
-                    @Override
-                    public void onSuccess(boolean status, final String buttonText, boolean showSimplIntroduction) {
-                        // Check the status, If (status is true-> User is approved and show the payment button
-                        // else don't)
-                        // Use "buttonText" to show the same on Payment button
-                    }
-                    /**
-                    * Called when opration is unsuccessful
-                    *
-                    * @param throwable reason of the exception. Use throwable.getMessage() to show user readable
-                    *                  error
-                    */
-                    @Override
-                    public void onError(Throwable throwable) {
-
-                    }
+                                /**
+                                * Called when operation is successful
+                                *
+                                * @param status                status of approval : true if user is approved and false if he is
+                                *                              not.
+                                * @param buttonText            Text that should appear on Simpl payment option
+                                * @param showSimplIntroduction Boolean to indicate that User should be shown an introduction
+                                *                              modal related to Simpl
+                                */
+                                @Override
+                                public void onSuccess(boolean status, final String buttonText, boolean showSimplIntroduction) {
+                                    // Check the status, If (status is true-> User is approved and show the payment button
+                                    // else don't)
+                                    // Use "buttonText" to show the same on Payment button
+                                }
+                                /**
+                                * Called when opration is unsuccessful
+                                *
+                                * @param throwable reason of the exception. Use throwable.getMessage() to show user readable
+                                *                  error
+                                */
+                                @Override
+                                public void onError(Throwable throwable) {
+            
+                                }
                 });
 ```
 ## Important
