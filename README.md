@@ -331,10 +331,7 @@ You can report issues/feature requests related with Android SDK [here](https://g
 -> It's sometimes because of the redirect failure. Just retry building the app once or twice. If the issue persists contact help@getsimpl.com
 
 2) I see following error in the terminal while building the app using gradle command
-   ```console
-   Starting a new Gradle Daemon for this build (subsequent builds will be faster).
-   Parallel execution with configuration on demand is an incubating feature.
-   
+```console
    FAILURE: Build failed with an exception.
    
    * What went wrong:
@@ -342,14 +339,7 @@ You can report issues/feature requests related with Android SDK [here](https://g
    > Could not download data.aar (com.simpl.android:data:0.0.1)
       > Could not get resource 'http://maven.getsimpl.com/com/simpl/android/data/0.0.1/data-0.0.1.aar'.
          > Could not HEAD 'http://maven.getsimpl.com/com/simpl/android/data/0.0.1/data-0.0.1.aar'. Received status code 502 from server: Bad Gateway
-   
-   * Try:
-   Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
-   
-   BUILD FAILED
-   
-   Total time: 2 mins 44.481 secs
-  ```
+```
 
 -> This is also the result of redirect failure. Just retry building the app once or twice. If the issue persists contact help@getsimpl.com.
 
